@@ -72,6 +72,15 @@ class Action
         bool haveScreens() const { return m_HasScreens; }
         void setHaveScreens(bool b) { m_HasScreens = b; }
 
+        bool hasCustomPosition() const { return m_hasCustomPosition; }
+        void setHasCustomPosition(bool b) { m_hasCustomPosition = b; }
+        
+        int customX() const { return m_customX; }
+        void setCustomX(int x) { m_customX = x; }
+        
+        int customY() const { return m_customY; }
+        void setCustomY(int y) { m_customY = y; }
+
     private:
         KeySequence m_KeySequence;
         int m_Type;
@@ -81,6 +90,9 @@ class Action
         int m_LockCursorMode;
         bool m_ActiveOnRelease;
         bool m_HasScreens;
+        bool m_hasCustomPosition;
+        int m_customX;
+        int m_customY;
 
         static const char* m_ActionTypeNames[];
         static const char* m_SwitchDirectionNames[];

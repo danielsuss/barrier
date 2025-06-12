@@ -63,8 +63,12 @@ public:
     class SwitchToScreenInfo {
     public:
         static SwitchToScreenInfo* alloc(const std::string& screen);
+        static SwitchToScreenInfo* alloc(const std::string& screen, SInt32 x, SInt32 y);
 
     public:
+        bool            m_hasCustomPosition;
+        SInt32          m_x;
+        SInt32          m_y;
         // this is a C-string;  this type is a variable size structure
         char            m_screen[1];
     };

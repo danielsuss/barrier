@@ -40,7 +40,10 @@ Action::Action() :
     m_SwitchDirection(switchLeft),
     m_LockCursorMode(lockCursorToggle),
     m_ActiveOnRelease(false),
-    m_HasScreens(false)
+    m_HasScreens(false),
+    m_hasCustomPosition(false),
+    m_customX(0),
+    m_customY(0)
 {
 }
 
@@ -87,6 +90,12 @@ QString Action::text() const
         case switchToScreen:
             text += "(";
             text += switchScreenName();
+            if (hasCustomPosition()) {
+                text += ",";
+                text += QString::number(customX());
+                text += ",";
+                text += QString::number(customY());
+            }
             text += ")";
             break;
 
@@ -133,6 +142,9 @@ void Action::loadSettings(QSettings& settings)
     setLockCursorMode(settings.value("lockCursorToScreen", lockCursorToggle).toInt());
     setActiveOnRelease(settings.value("activeOnRelease", false).toBool());
     setHaveScreens(settings.value("hasScreens", false).toBool());
+    setHasCustomPosition(settings.value("hasCustomPosition", false).toBool());
+    setCustomX(settings.value("customX", 0).toInt());
+    setCustomY(settings.value("customY", 0).toInt());
 }
 
 void Action::saveSettings(QSettings& settings) const
@@ -153,6 +165,9 @@ void Action::saveSettings(QSettings& settings) const
     settings.setValue("lockCursorToScreen", lockCursorMode());
     settings.setValue("activeOnRelease", activeOnRelease());
     settings.setValue("hasScreens", haveScreens());
+    settings.setValue("hasCustomPosition", hasCustomPosition());
+    settings.setValue("customX", customX());
+    settings.setValue("customY", customY());
 }
 
 QTextStream& operator<<(QTextStream& outStream, const Action& action)

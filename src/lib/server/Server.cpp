@@ -1404,7 +1404,13 @@ Server::handleSwitchToScreenEvent(const Event& event, void*)
 		LOG((CLOG_DEBUG1 "screen \"%s\" not active", info->m_screen));
 	}
 	else {
-		jumpToScreen(index->second);
+		if (info->m_hasCustomPosition) {
+			// Switch to specific coordinates
+			switchScreen(index->second, info->m_x, info->m_y, false);
+		} else {
+			// Use default behavior - jump to last cursor position
+			jumpToScreen(index->second);
+		}
 	}
 }
 
@@ -2329,6 +2335,22 @@ Server::SwitchToScreenInfo::alloc(const std::string& screen)
 	SwitchToScreenInfo* info =
 		(SwitchToScreenInfo*)malloc(sizeof(SwitchToScreenInfo) +
 								screen.size());
+	info->m_hasCustomPosition = false;
+	info->m_x = 0;
+	info->m_y = 0;
+	strcpy(info->m_screen, screen.c_str());
+	return info;
+}
+
+Server::SwitchToScreenInfo*
+Server::SwitchToScreenInfo::alloc(const std::string& screen, SInt32 x, SInt32 y)
+{
+	SwitchToScreenInfo* info =
+		(SwitchToScreenInfo*)malloc(sizeof(SwitchToScreenInfo) +
+								screen.size());
+	info->m_hasCustomPosition = true;
+	info->m_x = x;
+	info->m_y = y;
 	strcpy(info->m_screen, screen.c_str());
 	return info;
 }

@@ -1141,8 +1141,8 @@ void Config::parseAction(ConfigReadContext& s, const std::string& name,
 */
 
 	else if (name == "switchToScreen") {
-		if (args.size() != 1) {
-			throw XConfigRead(s, "syntax for action: switchToScreen(name)");
+		if (args.size() != 1 && args.size() != 3) {
+			throw XConfigRead(s, "syntax for action: switchToScreen(name[,x,y])");
 		}
 
         std::string screen = args[0];
@@ -1153,7 +1153,19 @@ void Config::parseAction(ConfigReadContext& s, const std::string& name,
 			throw XConfigRead(s, "unknown screen name in switchToScreen");
 		}
 
-		action = new InputFilter::SwitchToScreenAction(m_events, screen);
+		if (args.size() == 3) {
+			// Parse coordinates
+			int x, y;
+			try {
+				x = std::stoi(args[1]);
+				y = std::stoi(args[2]);
+			} catch (const std::exception&) {
+				throw XConfigRead(s, "invalid coordinates in switchToScreen");
+			}
+			action = new InputFilter::SwitchToScreenAction(m_events, screen, x, y);
+		} else {
+			action = new InputFilter::SwitchToScreenAction(m_events, screen);
+		}
 	}
 
   else if (name == "toggleScreen") {

@@ -153,8 +153,12 @@ public:
     class SwitchToScreenAction : public Action {
     public:
         SwitchToScreenAction(IEventQueue* events, const std::string& screen);
+        SwitchToScreenAction(IEventQueue* events, const std::string& screen, int x, int y);
 
         std::string getScreen() const;
+        bool hasCustomPosition() const;
+        int getX() const;
+        int getY() const;
 
         // Action overrides
         virtual Action*        clone() const;
@@ -163,6 +167,9 @@ public:
 
     private:
         std::string                    m_screen;
+        bool                    m_hasCustomPosition;
+        int                     m_x;
+        int                     m_y;
         IEventQueue*            m_events;
     };
 
