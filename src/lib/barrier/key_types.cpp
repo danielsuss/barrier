@@ -209,6 +209,7 @@ const KeyModifierNameMapEntry kModifierNameMap[] = {
     { "AltGr",            KeyModifierAltGr },
 //    { "CapsLock",        KeyModifierCapsLock },
     { "Control",        KeyModifierControl },
+    { "Grave",            KeyModifierGrave },
     { "Meta",            KeyModifierMeta },
 //    { "NumLock",        KeyModifierNumLock },
 //    { "ScrollLock",        KeyModifierScrollLock },

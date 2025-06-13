@@ -25,6 +25,9 @@
 
 class QSettings;
 
+// Custom modifier for grave key (not supported by Qt)
+static const int GraveModifier = 0x20000000;
+
 class KeySequence
 {
     public:

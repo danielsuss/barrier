@@ -139,6 +139,19 @@ bool KeySequence::appendKey(int key, int modifiers)
             }
             break;
 
+        case Qt::Key_QuoteLeft:
+            {
+                printf("GRAVE DEBUG: Qt::Key_QuoteLeft detected in GUI\n");
+                int mod = GraveModifier & (~m_Modifiers);
+                if (mod)
+                {
+                    printf("GRAVE DEBUG: Adding GraveModifier to sequence: %08x\n", mod);
+                    m_Sequence.append(mod);
+                    m_Modifiers |= mod;
+                }
+            }
+            break;
+
         default:
             // see if we can handle this key, if not, don't accept it
             if (keyToString(key).isEmpty())
@@ -209,6 +222,9 @@ QString KeySequence::keyToString(int key)
 
     if (key & Qt::MetaModifier)
         return "Meta";
+
+    if (key & GraveModifier)
+        return "Grave";
 
     // treat key pad like normal keys (FIXME: we should have another lookup table for keypad keys instead)
      key &= ~Qt::KeypadModifier;
