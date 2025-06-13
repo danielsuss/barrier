@@ -317,6 +317,7 @@ XWindowsKeyState::updateKeysymMap(barrier::KeyMap& keyMap)
     m_modifierToX[KeyModifierShift]    = ShiftMask;
     m_modifierToX[KeyModifierCapsLock] = LockMask;
     m_modifierToX[KeyModifierControl]  = ControlMask;
+    m_modifierToX[KeyModifierGrave]    = Mod4Mask;
 
     // prepare map from KeyID to KeyCode
     m_keyCodeFromKey.clear();
@@ -776,6 +777,16 @@ XWindowsKeyState::updateKeysymMapXKB(barrier::KeyMap& keyMap)
                     m_keyCodeFromKey.insert(std::make_pair(item.m_id, keycode));
                 }
             }
+        }
+    }
+
+    // Add fallback for grave modifier if not found during XKB discovery
+    if (m_modifierToX.find(KeyModifierGrave) == m_modifierToX.end()) {
+        LOG((CLOG_DEBUG1 "XKB: Adding fallback mapping for grave modifier to Mod4"));
+        m_modifierToX[KeyModifierGrave] = Mod4Mask;
+        // Also update the reverse mapping for consistency
+        if (m_modifierFromX.size() > 3) {  // Mod4 is bit 3
+            m_modifierFromX[3] |= KeyModifierGrave;
         }
     }
 
