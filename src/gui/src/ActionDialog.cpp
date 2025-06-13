@@ -73,6 +73,11 @@ ActionDialog::ActionDialog(QWidget* parent, ServerConfig& config, Hotkey& hotkey
             idx++;
         }
     }
+
+    // Initialize coordinate controls
+    m_pCheckBoxCustomPosition->setChecked(m_Action.hasCustomPosition());
+    m_pSpinBoxX->setValue(m_Action.customX());
+    m_pSpinBoxY->setValue(m_Action.customY());
 }
 
 void ActionDialog::accept()
@@ -93,6 +98,23 @@ void ActionDialog::accept()
     m_Action.setSwitchDirection(m_pComboSwitchInDirection->currentIndex());
     m_Action.setLockCursorMode(m_pComboLockCursorToScreen->currentIndex());
     m_Action.setActiveOnRelease(m_pRadioHotkeyReleased->isChecked());
+    
+    // Save coordinate settings only for switchToScreen action
+    if (m_pButtonGroupType->checkedId() == Action::switchToScreen) {
+        m_Action.setHasCustomPosition(m_pCheckBoxCustomPosition->isChecked());
+        if (m_pCheckBoxCustomPosition->isChecked()) {
+            m_Action.setCustomX(m_pSpinBoxX->value());
+            m_Action.setCustomY(m_pSpinBoxY->value());
+        } else {
+            m_Action.setCustomX(0);
+            m_Action.setCustomY(0);
+        }
+    } else {
+        // Clear custom position for other action types
+        m_Action.setHasCustomPosition(false);
+        m_Action.setCustomX(0);
+        m_Action.setCustomY(0);
+    }
 
     QDialog::accept();
 }

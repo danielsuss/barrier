@@ -143,6 +143,96 @@
        </layout>
       </item>
       <item>
+       <layout class="QVBoxLayout">
+        <item>
+         <widget class="QCheckBox" name="m_pCheckBoxCustomPosition">
+          <property name="text">
+           <string>Set specific position</string>
+          </property>
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <layout class="QHBoxLayout">
+          <item>
+           <spacer>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="m_pLabelX">
+            <property name="text">
+             <string>X:</string>
+            </property>
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="m_pSpinBoxX">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="minimum">
+             <number>0</number>
+            </property>
+            <property name="maximum">
+             <number>9999</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="m_pLabelY">
+            <property name="text">
+             <string>Y:</string>
+            </property>
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="m_pSpinBoxY">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="minimum">
+             <number>0</number>
+            </property>
+            <property name="maximum">
+             <number>9999</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item>
        <layout class="QHBoxLayout">
         <item>
          <widget class="QRadioButton" name="m_pRadioToggleScreen">
@@ -585,6 +675,86 @@
     <hint type="destinationlabel">
      <x>185</x>
      <y>123</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_pRadioSwitchToScreen</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>m_pCheckBoxCustomPosition</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>148</x>
+     <y>291</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>148</x>
+     <y>310</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_pCheckBoxCustomPosition</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>m_pLabelX</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>148</x>
+     <y>310</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>50</x>
+     <y>330</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_pCheckBoxCustomPosition</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>m_pSpinBoxX</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>148</x>
+     <y>310</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>100</x>
+     <y>330</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_pCheckBoxCustomPosition</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>m_pLabelY</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>148</x>
+     <y>310</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>150</x>
+     <y>330</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>m_pCheckBoxCustomPosition</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>m_pSpinBoxY</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>148</x>
+     <y>310</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>200</x>
+     <y>330</y>
     </hint>
    </hints>
   </connection>

@@ -322,6 +322,20 @@ InputFilter::LockCursorToScreenAction::perform(const Event& event)
 InputFilter::SwitchToScreenAction::SwitchToScreenAction(IEventQueue* events,
                                                         const std::string& screen) :
     m_screen(screen),
+    m_hasCustomPosition(false),
+    m_x(0),
+    m_y(0),
+    m_events(events)
+{
+    // do nothing
+}
+
+InputFilter::SwitchToScreenAction::SwitchToScreenAction(IEventQueue* events,
+                                                        const std::string& screen, int x, int y) :
+    m_screen(screen),
+    m_hasCustomPosition(true),
+    m_x(x),
+    m_y(y),
     m_events(events)
 {
     // do nothing
@@ -332,15 +346,38 @@ std::string InputFilter::SwitchToScreenAction::getScreen() const
     return m_screen;
 }
 
+bool InputFilter::SwitchToScreenAction::hasCustomPosition() const
+{
+    return m_hasCustomPosition;
+}
+
+int InputFilter::SwitchToScreenAction::getX() const
+{
+    return m_x;
+}
+
+int InputFilter::SwitchToScreenAction::getY() const
+{
+    return m_y;
+}
+
 InputFilter::Action*
 InputFilter::SwitchToScreenAction::clone() const
 {
-    return new SwitchToScreenAction(*this);
+    if (m_hasCustomPosition) {
+        return new SwitchToScreenAction(m_events, m_screen, m_x, m_y);
+    } else {
+        return new SwitchToScreenAction(m_events, m_screen);
+    }
 }
 
 std::string InputFilter::SwitchToScreenAction::format() const
 {
-    return barrier::string::sprintf("switchToScreen(%s)", m_screen.c_str());
+    if (m_hasCustomPosition) {
+        return barrier::string::sprintf("switchToScreen(%s,%d,%d)", m_screen.c_str(), m_x, m_y);
+    } else {
+        return barrier::string::sprintf("switchToScreen(%s)", m_screen.c_str());
+    }
 }
 
 void
@@ -356,8 +393,12 @@ InputFilter::SwitchToScreenAction::perform(const Event& event)
     }
 
     // send event
-    Server::SwitchToScreenInfo* info =
-        Server::SwitchToScreenInfo::alloc(screen);
+    Server::SwitchToScreenInfo* info;
+    if (m_hasCustomPosition) {
+        info = Server::SwitchToScreenInfo::alloc(screen, m_x, m_y);
+    } else {
+        info = Server::SwitchToScreenInfo::alloc(screen);
+    }
     m_events->addEvent(Event(m_events->forServer().switchToScreen(),
                                 event.getTarget(), info,
                                 Event::kDeliverImmediately));

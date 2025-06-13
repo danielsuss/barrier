@@ -58,6 +58,7 @@ static const KeyModifierMask	KeyModifierMeta       = 0x0008;
 static const KeyModifierMask	KeyModifierSuper      = 0x0010;
 static const KeyModifierMask	KeyModifierAltGr      = 0x0020;
 static const KeyModifierMask	KeyModifierLevel5Lock = 0x0040;
+static const KeyModifierMask	KeyModifierGrave      = 0x0080;
 static const KeyModifierMask	KeyModifierCapsLock   = 0x1000;
 static const KeyModifierMask	KeyModifierNumLock    = 0x2000;
 static const KeyModifierMask	KeyModifierScrollLock = 0x4000;
@@ -73,6 +74,7 @@ static const UInt32				kKeyModifierBitMeta       = 3;
 static const UInt32				kKeyModifierBitSuper      = 4;
 static const UInt32				kKeyModifierBitAltGr      = 5;
 static const UInt32				kKeyModifierBitLevel5Lock = 6;
+static const UInt32				kKeyModifierBitGrave      = 7;
 static const UInt32				kKeyModifierBitCapsLock   = 12;
 static const UInt32				kKeyModifierBitNumLock    = 13;
 static const UInt32				kKeyModifierBitScrollLock = 14;
@@ -88,7 +90,8 @@ static const KeyModifierID		kKeyModifierIDAlt      = 3;
 static const KeyModifierID		kKeyModifierIDMeta     = 4;
 static const KeyModifierID		kKeyModifierIDSuper    = 5;
 static const KeyModifierID		kKeyModifierIDAltGr    = 6;
-static const KeyModifierID		kKeyModifierIDLast     = 7;
+static const KeyModifierID		kKeyModifierIDGrave    = 7;
+static const KeyModifierID		kKeyModifierIDLast     = 8;
 //@}
 
 //! @name Key identifiers

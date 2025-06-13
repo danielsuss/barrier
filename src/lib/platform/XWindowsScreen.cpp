@@ -528,7 +528,7 @@ XWindowsScreen::registerHotKey(KeyID key, KeyModifierMask mask)
 {
 	// only allow certain modifiers
 	if ((mask & ~(KeyModifierShift | KeyModifierControl |
-				  KeyModifierAlt   | KeyModifierSuper)) != 0) {
+				  KeyModifierAlt   | KeyModifierSuper | KeyModifierGrave)) != 0) {
 		LOG((CLOG_DEBUG "could not map hotkey id=%04x mask=%04x", key, mask));
 		return 0;
 	}

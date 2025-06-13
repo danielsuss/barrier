@@ -1646,6 +1646,9 @@ XWindowsUtil::getModifierBitForKeySym(KeySym keysym)
     case XK_Scroll_Lock:
         return kKeyModifierBitScrollLock;
 
+    case XK_grave:
+        return kKeyModifierBitGrave;
+
     default:
         return kKeyModifierBitNone;
     }
